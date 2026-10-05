@@ -242,6 +242,25 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 	}
 }
 
+if ( ! function_exists( 'delete_option' ) ) {
+	/**
+	 * Stub of delete_option(): removes from the store and records the call.
+	 *
+	 * @param string $option Option name.
+	 * @return bool True when an option was removed, false otherwise.
+	 */
+	function delete_option( $option ) {
+		$GLOBALS['__deleted_options'][] = $option;
+
+		if ( array_key_exists( $option, $GLOBALS['__wp_options'] ) ) {
+			unset( $GLOBALS['__wp_options'][ $option ] );
+			return true;
+		}
+
+		return false;
+	}
+}
+
 if ( ! function_exists( 'register_setting' ) ) {
 	/**
 	 * Stub of register_setting().
@@ -346,6 +365,7 @@ function footnotes_test_reset_wp_state(): void {
 	$GLOBALS['__loaded_textdomains']  = array();
 	$GLOBALS['__translation_calls']   = array();
 	$GLOBALS['__wp_options']          = array();
+	$GLOBALS['__deleted_options']     = array();
 	$GLOBALS['__registered_settings'] = array();
 	$GLOBALS['__settings_sections']   = array();
 	$GLOBALS['__settings_fields']     = array();
