@@ -33,9 +33,12 @@
 	 *
 	 * @reporter @dpartridge
 	 * @link https://wordpress.org/support/topic/qtags-addbutton/
-	 * 
+	 *
+	 * Guard with `typeof`: referencing an undeclared identifier throws a
+	 * ReferenceError, so a bare identifier check cannot protect against QTags
+	 * being absent.
 	 */
-	if ( QTags ) {
+	if ( 'undefined' !== typeof QTags ) {
 		QTags.addButton( 'MCI_Footnotes_QuickTag_button', 'footnote', MCI_Footnotes_text_editor_callback );
 	}
 
