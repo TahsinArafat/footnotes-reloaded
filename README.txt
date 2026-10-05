@@ -1,11 +1,10 @@
-=== footnotes ===
+=== footnotes-reloaded ===
 Contributors: mark.cheret, lolzim, rumperuu, aricura, misfist, ericakfranz, milindmore22, westonruter, dartiss, derivationfr, docteurfitness, felipelavinz, martinneumannat, matkus2, meglio, spaceling, vonpiernik, pewgeuges
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6Z6CZDW8PPBBJ
 Tags: footnote, footnotes, bibliography, formatting, notes, Post, posts, reference, referencing
-Requires at least: 3.9
-Tested up to: 5.7.1
-Requires PHP: 7.4
-Stable Tag: 2.7.3
+Requires at least: 5.4
+Tested up to: 6.7
+Requires PHP: 8.0
+Stable Tag: 2.8.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,15 +12,16 @@ footnotes lets you easily add highly-customisable footnotes on your WordPress Pa
 
 == Description ==
 
-**footnotes** aims to be the all-in-one solution for displaying an automatically-generated list of references on your Page or Post. The Plugin ships with a set of defaults while also empowering you to control how your footnotes are being displayed.
+**footnotes-reloaded** aims to be the all-in-one solution for displaying an automatically-generated list of references on your Page or Post. The Plugin ships with a set of defaults while also empowering you to control how your footnotes are being displayed.
 
-**footnotes** gives you the ability to display well-formatted footnotes on your WordPress Pages and Posts, as well as in post excerpts with fully functional tooltips if enabled.
+**footnotes-reloaded** gives you the ability to display well-formatted footnotes on your WordPress Pages and Posts, as well as in post excerpts with fully functional tooltips if enabled.
 
-Featured on [wpmudev][wpmudev] - cheers for the review, folks!
-
-https://www.youtube.com/watch?v=HzHaMAAJwbI
-
-[wpmudev]: http://premium.wpmudev.org/blog/12-surprisingly-useful-wordpress-plugins-you-dont-know-about/
+This is a maintained continuation of the **footnotes** plugin originally written by
+[Mark Cheret](https://cheret.tech/footnotes) and contributors. The original plugin was
+[closed on WordPress.org in November 2022](https://wordpress.org/plugins/footnotes/) at
+the author's request and has not been updated since. This fork carries the plugin
+forward, with particular attention to compatibility with current WordPress and PHP
+versions.
 
 = Main Features =
 
@@ -36,21 +36,25 @@ https://www.youtube.com/watch?v=HzHaMAAJwbI
 
 == Frequently Asked Questions ==
 
-= Is your Plugin a fork of another Plugin? =
+= Is this the original plugin? =
 
-No, this Plugin has been written from scratch. Of course some inspirations on how to do or how to not do things were taken from other plugins.
+No. This is a maintained fork of the **footnotes** plugin, which was closed on
+WordPress.org in November 2022 and is no longer maintained. All credit for the original
+plugin belongs to Mark Cheret and the contributors listed above. This fork continues
+development under the GPLv3, as the licence requires and permits.
 
-= Your Plugin is awesome! How do I convert my footnotes if I used one of the other footnotes plugins out there? =
+= How do I convert my footnotes if I used another footnotes plugin? =
 
-* For anyone interested in converting from [FD Footnotes Plugin][fd-footnotes], see [this write-up][fd-writeup] from **footnotes** user @southwest
-* From what we've researched, all other footnotes Plugins use open and close shortcodes, which can be left as-is. In the **footnotes** settings menu, you can setup **footnotes** to use the existing (i.e., previously-used) shortcodes. Too easy? Yippy Ki-Yey!
+Most footnotes plugins use open and close shortcodes, which can be left as-is. In the
+**footnotes** settings, you can configure the plugin to use your existing shortcodes.
 
-[fd-footnotes]: https://wordpress.org/plugins/fd-footnotes/
-[fd-writeup]: https://wordpress.org/support/topic/how-to-make-this-footnote-style/
+= What are the system requirements? =
+
+WordPress 5.4 or later, and PHP 8.0 or later.
 
 == Screenshots ==
 
-1. Plugin settings can be found under the default ‘Settings’ menu.
+1. Plugin settings can be found under the default 'Settings' menu.
 2. Settings for the *References Container*.
 3. Settings for footnotes styling.
 4. Settings for **footnotes** love.
@@ -59,6 +63,23 @@ No, this Plugin has been written from scratch. Of course some inspirations on ho
 7. Here you can see the **footnotes** Plugin at work.
 
 == Changelog ==
+
+= 2.8.0 =
+
+Fork maintenance release. Compatibility and correctness fixes on top of 2.7.3.
+
+- Fix: Internationalization: load the textdomain on `init` rather than
+  `plugins_loaded`. WordPress 6.7 and later emit
+  `_load_textdomain_just_in_time was called incorrectly` otherwise, which broke
+  admin page rendering.
+- Fix: Internationalization: construct the reference container widget lazily on
+  `widgets_init`. Its constructor resolved a translated string, which triggered
+  the same WordPress 6.7 notice.
+- Fix: Editor: guard the Classic Editor `QTags` registration with a `typeof`
+  check. The previous bare identifier check threw
+  `Uncaught ReferenceError: QTags is not defined` when Quicktags was absent.
+- Docs: correct the readme metadata (supported WordPress and PHP versions were
+  stale) and record the fork's provenance.
 
 = 2.7.3 =
 
@@ -74,7 +95,7 @@ No, this Plugin has been written from scratch. Of course some inspirations on ho
 - Dashboard: move Plugin settings under default WP Settings menu.
 - Bugfix: Footnotes: fix bug when using multiple paragraphs in footnotes.
 - Documentation: remove outdated MCI/ManFisher references.
-- Documentation: split changelog into seperate file.  
+- Documentation: split changelog into seperate file.
 
 = 2.7.0 =
 
@@ -83,10 +104,10 @@ No, this Plugin has been written from scratch. Of course some inspirations on ho
 - Bugfix: Dashboard: debug the 'Quick start guide' tab, thanks to @rumperuu bug report.
 
 == Upgrade Notice ==
- 
-= 2.7.3 =
 
-This release resolves a CSS class conflict with the commonly-used `.collapsed` class.
+= 2.8.0 =
+
+Adds compatibility with WordPress 6.7 and later, and requires PHP 8.0 or later.
 
 == Usage ==
 
@@ -99,9 +120,5 @@ These are a few examples of possible ways to delimit your footnotes:
 
 == Support ==
 
-Please report feature requests, bugs and other support related questions in the [WordPress Support Forum][wp-support-forum].
-
-Speak your mind, unload your burden, bring it up, and feel free to [post your rating and review!][ratings].
-
-[wp-support-forum]: https://wordpress.org/support/plugin/footnotes
-[ratings]: https://wordpress.org/support/plugin/footnotes/reviews/
+Please report bugs and feature requests on the
+[GitHub issue tracker](https://github.com/TahsinArafat/footnotes-reloaded/issues).

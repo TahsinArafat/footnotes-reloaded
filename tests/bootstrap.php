@@ -20,7 +20,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 defined( 'WPINC' ) || define( 'WPINC', 'wp-includes' );
 defined( 'ABSPATH' ) || define( 'ABSPATH', __DIR__ . '/' );
-defined( 'PLUGIN_VERSION' ) || define( 'PLUGIN_VERSION', '2.8.0p' );
+defined( 'PLUGIN_VERSION' ) || define( 'PLUGIN_VERSION', '2.8.0' );
 defined( 'PRODUCTION_ENV' ) || define( 'PRODUCTION_ENV', false );
 defined( 'PHP_INT_MAX' ) || define( 'PHP_INT_MAX', 9223372036854775807 );
 

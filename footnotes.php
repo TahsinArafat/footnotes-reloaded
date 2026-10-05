@@ -11,10 +11,10 @@
  * @since 1.0.0
  *
  * @wordpress-plugin
- * Plugin Name: footnotes
- * Plugin URI: https://wordpress.org/plugins/footnotes/
+ * Plugin Name: footnotes-reloaded
+ * Plugin URI: https://github.com/TahsinArafat/footnotes-reloaded
  * Description: footnotes lets you easily add highly-customisable footnotes on your WordPress Pages and Posts.
- * Version: 2.8.0p
+ * Version: 2.8.0
  * Requires at least: 5.4
  * Tested up to: 6.7
  * Requires PHP: 8.0
@@ -45,7 +45,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @global string PLUGIN_VERSION The version of this instance of the plugin.
  */
-define( 'PLUGIN_VERSION', '2.8.0p' );
+define( 'PLUGIN_VERSION', '2.8.0' );
 
 /**
  * The environment that the plugin is configured for.
