@@ -102,10 +102,16 @@ final class I18nTimingTest extends TestCase {
 		$core       = $reflection->newInstanceWithoutConstructor();
 
 		$loader = new Loader();
-		$prop   = $reflection->getProperty( 'loader' );
+		$prop = $reflection->getProperty( 'loader' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$prop->setAccessible( true );
+		}
 		$prop->setValue( $core, $loader );
 
 		$method = new ReflectionMethod( Core::class, 'set_locale' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$method->setAccessible( true );
+		}
 		$method->invoke( $core );
 
 		return $loader;
@@ -119,8 +125,11 @@ final class I18nTimingTest extends TestCase {
 	private function collect_locale_hooks(): array {
 		$loader     = $this->populate_loader();
 		$reflection = new ReflectionClass( $loader );
-		$prop       = $reflection->getProperty( 'actions' );
-		$actions    = $prop->getValue( $loader );
+		$prop = $reflection->getProperty( 'actions' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$prop->setAccessible( true );
+		}
+		$actions = $prop->getValue( $loader );
 
 		return array_values( array_map( static fn( array $a ): string => $a['hook'], $actions ) );
 	}

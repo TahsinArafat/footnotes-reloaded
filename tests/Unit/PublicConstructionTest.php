@@ -57,6 +57,9 @@ final class PublicConstructionTest extends TestCase {
 		$general = $this->make_general();
 
 		$method = new ReflectionMethod( General::class, 'load_dependencies' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$method->setAccessible( true );
+		}
 		$method->invoke( $general );
 
 		$this->assertSame(
@@ -75,11 +78,17 @@ final class PublicConstructionTest extends TestCase {
 		$general = $this->make_general();
 
 		$method = new ReflectionMethod( General::class, 'load_dependencies' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$method->setAccessible( true );
+		}
 		$method->invoke( $general );
 
 		$reflection = new ReflectionClass( $general );
-		$prop       = $reflection->getProperty( 'reference_container_widget' );
-		$widget     = $prop->getValue( $general );
+		$prop = $reflection->getProperty( 'reference_container_widget' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$prop->setAccessible( true );
+		}
+		$widget = $prop->getValue( $general );
 
 		$this->assertNull(
 			$widget,
@@ -96,12 +105,20 @@ final class PublicConstructionTest extends TestCase {
 		$reflection = new ReflectionClass( General::class );
 		$general    = $reflection->newInstanceWithoutConstructor();
 
-		$reflection->getProperty( 'plugin_name' )->setValue( $general, 'footnotes' );
+		$plugin_name = $reflection->getProperty( 'plugin_name' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$plugin_name->setAccessible( true );
+		}
+		$plugin_name->setValue( $general, 'footnotes' );
 
 		// Build a real Settings object so all settings groups are loaded, as
 		// they are in production.
 		$settings = Settings::instance();
-		$reflection->getProperty( 'settings' )->setValue( $general, $settings );
+		$settings_prop = $reflection->getProperty( 'settings' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$settings_prop->setAccessible( true );
+		}
+		$settings_prop->setValue( $general, $settings );
 
 		return $general;
 	}
