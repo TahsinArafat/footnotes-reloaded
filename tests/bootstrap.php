@@ -212,6 +212,24 @@ if ( ! function_exists( 'esc_url' ) ) {
 	}
 }
 
+if ( ! function_exists( 'sanitize_hex_color' ) ) {
+	/**
+	 * Stub of sanitize_hex_color().
+	 *
+	 * @param string $color Candidate colour.
+	 * @return string|null Valid `#rgb`/`#rrggbb`, else null.
+	 */
+	function sanitize_hex_color( $color ) {
+		$color = (string) $color;
+
+		if ( preg_match( '/^#([A-Fa-f0-9]{3}){1,2}$/', $color ) ) {
+			return $color;
+		}
+
+		return null;
+	}
+}
+
 if ( ! function_exists( 'sanitize_text_field' ) ) {
 	/**
 	 * Stub of sanitize_text_field().

@@ -394,6 +394,117 @@ class Setting {
 	}
 
 	/**
+	 * Gets the declared data type of the setting.
+	 *
+	 * @return string One of `boolean`, `integer`, `number`, `string`.
+	 *
+	 * @since 2.8.0
+	 */
+	public function get_type(): string {
+		return $this->type;
+	}
+
+	/**
+	 * Gets the input type used to render the setting.
+	 *
+	 * @return string One of `checkbox`, `color`, `number`, `select`, `text`, `textarea`.
+	 *
+	 * @since 2.8.0
+	 */
+	public function get_input_type(): string {
+		return $this->input_type;
+	}
+
+	/**
+	 * Gets the upper bound of an input, if one is set.
+	 *
+	 * @return int|float|null The maximum, or `null` if unbounded.
+	 *
+	 * @since 2.8.0
+	 */
+	public function get_input_max(): int|float|null {
+		return $this->input_max ?? null;
+	}
+
+	/**
+	 * Gets the lower bound of an input, if one is set.
+	 *
+	 * @return int|float|null The minimum, or `null` if unbounded.
+	 *
+	 * @since 2.8.0
+	 */
+	public function get_input_min(): int|float|null {
+		return $this->input_min ?? null;
+	}
+
+	/**
+	 * Sanitises a submitted value according to the setting's declared type and
+	 * input type.
+	 *
+	 * Sanitisation keys off the *input type* rather than the declared type,
+	 * because `type` conflates safe text with raw CSS: the custom CSS setting is
+	 * `type: string, input_type: textarea` and must not have its newlines or
+	 * markup stripped.
+	 *
+	 * The `textarea` case is deliberately passed through unchanged. It is the
+	 * custom CSS field, editable only by a user with `manage_options`, which is
+	 * the same trust model WordPress applies to the Customizer's Additional CSS.
+	 * It is gated by capability and nonce checks at the call site; it is not
+	 * sanitised here, on purpose.
+	 *
+	 * @param mixed $value The raw submitted value.
+	 * @return mixed The sanitised value.
+	 *
+	 * @since 2.8.0
+	 */
+	public function sanitize( $value ) {
+		switch ( $this->input_type ) {
+			case 'checkbox':
+				return (bool) $value && '0' !== $value;
+
+			case 'number':
+				$sanitised = ( 'integer' === $this->type ) ? (int) $value : (float) $value;
+				$sanitised = $this->clamp( $sanitised );
+				return ( 'integer' === $this->type ) ? (int) $sanitised : (float) $sanitised;
+
+			case 'select':
+				$options = $this->input_options ?? array();
+				return array_key_exists( (string) $value, $options ) ? (string) $value : $this->default_value;
+
+			case 'color':
+				$hex = sanitize_hex_color( (string) $value );
+				return null !== $hex ? $hex : $this->default_value;
+
+			case 'textarea':
+				return (string) $value;
+
+			case 'text':
+			default:
+				return sanitize_text_field( (string) $value );
+		}
+	}
+
+	/**
+	 * Applies the configured minimum and maximum to a numeric value.
+	 *
+	 * @param int|float $value Value to clamp.
+	 * @return int|float Clamped value.
+	 *
+	 * @since 2.8.0
+	 */
+	private function clamp( int|float $value ): int|float {
+		if ( null !== $this->input_min && $value < $this->input_min ) {
+			return $this->input_min;
+		}
+
+		if ( null !== $this->input_max && $value > $this->input_max ) {
+			return $this->input_max;
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Sets the value of the setting.
 	 *
 	 * @param mixed $value The new value to set.

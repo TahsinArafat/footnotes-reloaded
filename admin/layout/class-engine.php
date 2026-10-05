@@ -132,6 +132,9 @@ abstract class Engine {
 		$settings_updated = false;
 		if ( array_key_exists( 'save-settings', $_POST ) ) {
 			if ( 'save' === $_POST['save-settings'] ) {
+				// Verify the nonce emitted alongside the form before writing.
+				check_admin_referer( 'footnotes_save_settings' );
+
 				unset( $_POST['save-settings'] );
 				unset( $_POST['submit'] );
 				$settings_updated = $this->save_settings();
@@ -162,8 +165,8 @@ abstract class Engine {
 	  <form action="" method="post">
 		  <input type="hidden" name="save-settings" value="save" />
 		<?php
-		// output security fields for the registered setting "footnotes"
-		settings_fields( 'footnotes' );
+		// Output the nonce for this form's own action.
+		wp_nonce_field( 'footnotes_save_settings' );
 
 		// output setting sections and their fields
 		// (sections are registered for "footnotes", each field is registered to a specific section)
@@ -563,7 +566,7 @@ abstract class Engine {
 	 * @return  bool  `true` on save success, else `false`.
 	 *
 	 * @since  1.5.0
-	 * @todo  Review nonce verification.
+	 * @since  2.8.0 Verify the nonce and sanitise each value per its input type.
 	 * @todo  New settings require a page refresh to render correctly. Fix.
 	 */
 	private function save_settings(): bool {
@@ -574,8 +577,11 @@ abstract class Engine {
 		}
 		$active_section = $this->sections[ $active_section_id ];
 
-		foreach ( array_keys( $active_section->get_options() ) as $setting_key ) {
-			$new_settings[ $setting_key ] = array_key_exists( $setting_key, $_POST ) ? wp_unslash( $_POST[ $setting_key ] ) : '';
+		foreach ( $active_section->get_options() as $setting_key => $setting ) {
+			$raw = array_key_exists( $setting_key, $_POST ) ? wp_unslash( $_POST[ $setting_key ] ) : '';
+
+			// Sanitise according to the setting's own declared input type.
+			$new_settings[ $setting_key ] = $setting->sanitize( $raw );
 		}
 
 		// Update settings.
