@@ -1,0 +1,9 @@
+# OS / editor cruft
+.DS_Store
+*.swp
+.omo/
+.openclaude/
+
+# Build / dependency dirs (not part of the distributed plugin)
+node_modules/
+vendor/
