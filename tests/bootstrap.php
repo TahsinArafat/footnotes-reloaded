@@ -93,7 +93,7 @@ if ( ! function_exists( 'apply_filters' ) ) {
 	 */
 	function apply_filters( $hook, $value ) {
 		foreach ( $GLOBALS['__wp_filters'][ $hook ] ?? array() as $entry ) {
-			$value = $entry[0]( $value );
+			$value = call_user_func( $entry[0], $value );
 		}
 		return $value;
 	}
@@ -101,14 +101,14 @@ if ( ! function_exists( 'apply_filters' ) ) {
 
 if ( ! function_exists( 'do_action' ) ) {
 	/**
-	 * Stub of do_action().
+	 * Stub of do_action(): invokes registered handlers.
 	 *
 	 * @param string $hook Hook name.
 	 * @return void
 	 */
 	function do_action( $hook ) {
 		foreach ( $GLOBALS['__wp_hooks'][ $hook ] ?? array() as $entry ) {
-			$entry[0]();
+			call_user_func( $entry[0] );
 		}
 	}
 }
