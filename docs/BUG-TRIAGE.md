@@ -118,7 +118,25 @@ parser's regex approach (`public/class-parser.php`, 23 `preg_*` calls) cannot re
 nested delimiters — this is exactly upstream issue **#121** ("Refactor footnote parsing
 to use DOM parsing rather than RegEx").
 
-**Status:** Confirmed. Maps to upstream #151 and #121.
+**Status:** **DEFERRED — deliberately not fixed in this pass.** See decision below.
+
+**Deferral decision (recorded):**
+A narrow fix was attempted — neutralising the raw delimiters on the error path so the
+visitor stops seeing literal `(( ))`. It was abandoned and reverted. Rationale:
+
+- It modifies the **error path** of the largest and most fragile file in the plugin
+  (2,246 lines, 23 `preg_*` calls) — the highest-consequence region to touch.
+- The benefit is **cosmetic only**: the page is already showing a warning box; hiding the
+  delimiters does not make nesting work.
+- The failure mode of getting it wrong is a **fatal error on every page containing
+  unbalanced shortcodes** — a strictly worse outcome than the current cosmetic leak.
+- Nested shortcodes are rare, and the behaviour is **inherited from upstream** (it was
+  broken before this fork).
+
+The real fix is the regex-to-tokenizer rewrite (upstream #121), which the roadmap
+(Stage 5.6) already places after stability. Until then this stays documented, not patched.
+
+**Maps to:** upstream #151 (nested shortcodes), #121 (DOM/tokenizer refactor).
 
 ---
 
