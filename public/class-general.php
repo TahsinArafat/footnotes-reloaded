@@ -31,11 +31,16 @@ class General {
 	/**
 	 * The reference container widget.
 	 *
+	 * Constructed lazily on `widgets_init` via {@see General::register_widgets()}
+	 * rather than here: its constructor resolves a translated description, and
+	 * translating before `init` triggers WordPress 6.7's
+	 * `_load_textdomain_just_in_time` notice.
+	 *
 	 * @since  2.8.0
 	 *
-	 * @var  Widget\Reference_Container  $reference_container_widget  The reference container widget
+	 * @var  ?Widget\Reference_Container  $reference_container_widget  The reference container widget
 	 */
-	private Widget\Reference_Container $reference_container_widget;
+	private ?Widget\Reference_Container $reference_container_widget = null;
 
 	/**
 	 * The footnote parser.
@@ -154,8 +159,6 @@ class General {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-parser.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/widget/class-reference-container.php';
-
-		$this->reference_container_widget = new Widget\Reference_Container( $this->plugin_name, $this->settings );
 
 		$this->task = new Parser( $this->settings );
 	}
@@ -299,6 +302,7 @@ class General {
 	 * @since  2.8.0  Moved from {@see Footnotes} to {@see General}.
 	 */
 	public function register_widgets(): void {
+		$this->reference_container_widget = new Widget\Reference_Container( $this->plugin_name, $this->settings );
 		register_widget( $this->reference_container_widget );
 	}
 }

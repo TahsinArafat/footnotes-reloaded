@@ -148,6 +148,175 @@ if ( ! function_exists( '__' ) ) {
 	}
 }
 
+if ( ! function_exists( 'get_option' ) ) {
+	/**
+	 * Stub of get_option(): reads from an in-memory option store.
+	 *
+	 * @param string $option  Option name.
+	 * @param mixed  $default Default when absent.
+	 * @return mixed Option value or default.
+	 */
+	function get_option( $option, $default = false ) {
+		return $GLOBALS['__wp_options'][ $option ] ?? $default;
+	}
+}
+
+if ( ! function_exists( 'update_option' ) ) {
+	/**
+	 * Stub of update_option(): writes to the in-memory option store.
+	 *
+	 * @param string $option   Option name.
+	 * @param mixed  $value    New value.
+	 * @param mixed  $autoload Autoload flag (unused).
+	 * @return bool Always true.
+	 */
+	function update_option( $option, $value, $autoload = null ) {
+		$GLOBALS['__wp_options'][ $option ] = $value;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'esc_attr' ) ) {
+	/**
+	 * Stub of esc_attr().
+	 *
+	 * @param string $text Text to escape.
+	 * @return string Escaped text.
+	 */
+	function esc_attr( $text ) {
+		return htmlspecialchars( (string) $text, ENT_QUOTES );
+	}
+}
+
+if ( ! function_exists( 'esc_html' ) ) {
+	/**
+	 * Stub of esc_html().
+	 *
+	 * @param string $text Text to escape.
+	 * @return string Escaped text.
+	 */
+	function esc_html( $text ) {
+		return htmlspecialchars( (string) $text, ENT_QUOTES );
+	}
+}
+
+if ( ! function_exists( 'esc_url' ) ) {
+	/**
+	 * Stub of esc_url().
+	 *
+	 * @param string $url URL to escape.
+	 * @return string Escaped URL.
+	 */
+	function esc_url( $url ) {
+		return (string) $url;
+	}
+}
+
+if ( ! function_exists( 'sanitize_text_field' ) ) {
+	/**
+	 * Stub of sanitize_text_field().
+	 *
+	 * @param string $text Text to sanitize.
+	 * @return string Sanitised text.
+	 */
+	function sanitize_text_field( $text ) {
+		return trim( strip_tags( (string) $text ) );
+	}
+}
+
+if ( ! function_exists( 'register_setting' ) ) {
+	/**
+	 * Stub of register_setting().
+	 *
+	 * @param string $group  Settings group.
+	 * @param string $name   Setting name.
+	 * @param array  $args   Registration args.
+	 * @return void
+	 */
+	function register_setting( $group, $name, $args = array() ) {
+		$GLOBALS['__registered_settings'][] = array( $group, $name );
+	}
+}
+
+if ( ! function_exists( 'add_settings_section' ) ) {
+	/**
+	 * Stub of add_settings_section().
+	 *
+	 * @param string   $id       Section id.
+	 * @param string   $title    Section title.
+	 * @param callable $callback Callback.
+	 * @param string   $page     Page slug.
+	 * @return void
+	 */
+	function add_settings_section( $id, $title, $callback, $page = '' ) {
+		$GLOBALS['__settings_sections'][] = $id;
+	}
+}
+
+if ( ! function_exists( 'add_settings_field' ) ) {
+	/**
+	 * Stub of add_settings_field().
+	 *
+	 * @param string   $id       Field id.
+	 * @param string   $title    Field title.
+	 * @param callable $callback Callback.
+	 * @param string   $page     Page slug.
+	 * @param string   $section  Section id.
+	 * @param array    $args     Extra args.
+	 * @return void
+	 */
+	function add_settings_field( $id, $title, $callback, $page = '', $section = '', $args = array() ) {
+		$GLOBALS['__settings_fields'][] = $id;
+	}
+}
+
+if ( ! function_exists( 'register_widget' ) ) {
+	/**
+	 * Stub of register_widget(): records the widget class name.
+	 *
+	 * @param string $widget Widget class name.
+	 * @return void
+	 */
+	function register_widget( $widget ) {
+		$GLOBALS['__registered_widgets'][] = $widget;
+	}
+}
+
+if ( ! class_exists( 'WP_Widget' ) ) {
+	/**
+	 * Minimal stub of WP_Widget.
+	 *
+	 * Records constructor arguments so tests can assert on registration
+	 * without loading WordPress.
+	 */
+	class WP_Widget {
+
+		/**
+		 * Arguments passed to the parent constructor.
+		 *
+		 * @var array
+		 */
+		public array $constructed_with = array();
+
+		/**
+		 * Constructor stub.
+		 *
+		 * @param string $id_base         Base ID for the widget.
+		 * @param string $name            Widget display name.
+		 * @param array  $widget_options  Optional widget options.
+		 * @param array  $control_options Optional control options.
+		 */
+		public function __construct( $id_base = '', $name = '', $widget_options = array(), $control_options = array() ) {
+			$this->constructed_with = array(
+				'id_base'         => $id_base,
+				'name'            => $name,
+				'widget_options'  => $widget_options,
+				'control_options' => $control_options,
+			);
+		}
+	}
+}
+
 /**
  * Test helper: reset all recorded WordPress state between tests.
  *
@@ -158,4 +327,9 @@ function footnotes_test_reset_wp_state(): void {
 	$GLOBALS['__wp_filters']          = array();
 	$GLOBALS['__loaded_textdomains']  = array();
 	$GLOBALS['__translation_calls']   = array();
+	$GLOBALS['__wp_options']          = array();
+	$GLOBALS['__registered_settings'] = array();
+	$GLOBALS['__settings_sections']   = array();
+	$GLOBALS['__settings_fields']     = array();
+	$GLOBALS['__registered_widgets']  = array();
 }
