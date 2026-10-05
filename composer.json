@@ -1,0 +1,18 @@
+{
+    "name": "footnotes/footnotes",
+    "description": "footnotes lets you easily add highly-customisable footnotes on your WordPress Pages and Posts.",
+    "license": "GPL-3.0-or-later",
+    "type": "wordpress-plugin",
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "yoast/phpunit-polyfills": "^2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}

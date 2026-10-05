@@ -1,0 +1,32 @@
+[project]
+language = "php"
+
+[verification]
+# Run the unit suite. Tests live under tests/Unit; the bootstrap provides a
+# minimal WordPress shim so pure plugin logic is testable without WordPress.
+test_command = [
+    "vendor/bin/phpunit",
+    "--no-coverage",
+    "--do-not-cache-result",
+]
+test_globs = [
+    "tests/**/*Test.php",
+    "tests/**/Test*.php",
+    "**/tests/**/*Test.php",
+]
+extra_test_paths = []
+block_on_integrity_findings = true
+max_output_bytes = 32768
+targeted_test_selection = false
+timeout_secs = 300
+sandbox_env = []
+sandbox_network = false
+mutation = false
+coverage = false
+framework = "phpunit"
+signing_failure_exit_code = 1
+
+[gate]
+strict = false
+fail_on_no_changed_tests = false
+require_signature = false

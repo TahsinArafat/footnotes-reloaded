@@ -10,3 +10,14 @@ vendor/
 
 # macOS temp files
 .!*
+
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+# WitDiff receipts
+.witdiff/
