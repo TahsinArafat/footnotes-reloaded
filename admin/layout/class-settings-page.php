@@ -82,8 +82,14 @@ class SettingsPage extends Engine {
 	 **************************************************************************/
 
 	public function add_settings_fields(): void {
-		$active_section_id = isset( $_GET['t'] ) ? wp_unslash( $_GET['t'] ) : array_key_first( $this->sections );
-		$active_section    = $this->sections[ $active_section_id ];
+		$active_section_id = isset( $_GET['t'] ) ? sanitize_key( wp_unslash( $_GET['t'] ) ) : array_key_first( $this->sections );
+
+		// Fall back to the first section when the requested one does not exist.
+		if ( ! array_key_exists( $active_section_id, $this->sections ) ) {
+			$active_section_id = array_key_first( $this->sections );
+		}
+
+		$active_section = $this->sections[ $active_section_id ];
 
 		switch ( $active_section->get_section_slug() ) {
 			case 'footnotes-settings':
