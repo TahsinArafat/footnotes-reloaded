@@ -7,3 +7,6 @@
 # Build / dependency dirs (not part of the distributed plugin)
 node_modules/
 vendor/
+
+# macOS temp files
+.!*
