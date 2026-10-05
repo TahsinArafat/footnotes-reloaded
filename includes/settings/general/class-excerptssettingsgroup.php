@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace footnotes\includes\settings\general;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\includes\Footnotes;
 use footnotes\includes\Settings;
 use footnotes\includes\settings\Setting;

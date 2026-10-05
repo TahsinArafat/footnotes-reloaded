@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace footnotes\includes;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 require_once plugin_dir_path( __DIR__ ) . 'includes/class-config.php';
 
 /**

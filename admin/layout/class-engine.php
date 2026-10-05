@@ -17,6 +17,10 @@ declare(strict_types=1);
 
 namespace footnotes\admin\layout;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\includes\{Settings, Convert, Admin};
 
 require_once plugin_dir_path( __DIR__ ) . 'layout/class-init.php';

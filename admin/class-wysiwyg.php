@@ -17,6 +17,10 @@ declare(strict_types=1);
 
 namespace footnotes\admin;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\includes\{Settings, Template};
 use footnotes\includes\settings\general\ShortcodeSettingsGroup;
 

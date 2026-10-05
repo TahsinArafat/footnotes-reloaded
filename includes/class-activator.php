@@ -29,6 +29,10 @@ declare(strict_types=1);
 
 namespace footnotes\includes;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\admin\Admin;
 use footnotes\general\General;
 

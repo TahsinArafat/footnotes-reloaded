@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace footnotes\includes\settings;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\includes\settings\SettingsGroup;
 use footnotes\admin\layout as Layout;
 

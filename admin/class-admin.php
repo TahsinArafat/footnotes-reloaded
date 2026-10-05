@@ -15,6 +15,10 @@ declare(strict_types=1);
 
 namespace footnotes\admin;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\admin\layout\Init as SettingsPageInit;
 use footnotes\includes\{Core, Settings};
 

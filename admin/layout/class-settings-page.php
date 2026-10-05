@@ -17,6 +17,10 @@ declare(strict_types=1);
 
 namespace footnotes\admin\layout;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 require_once plugin_dir_path( dirname( __FILE__, 2 ) ) . 'includes/class-settings.php';
 
 use footnotes\includes\{Template, Settings, Parser, Config, Convert};

@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace footnotes\includes\settings\referrersandtooltips;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\includes\Settings;
 use footnotes\includes\settings\Setting;
 use footnotes\includes\settings\SettingsGroup;

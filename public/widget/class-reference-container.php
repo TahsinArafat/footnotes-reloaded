@@ -15,6 +15,10 @@
 
 namespace footnotes\general\Widget;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\includes\{Core, Settings};
 use const footnotes\includes\settings\general\ReferenceContainerSettingsGroup\REFERENCE_CONTAINER_POSITION;
 

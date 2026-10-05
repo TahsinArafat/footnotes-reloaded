@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace footnotes\general\Widget;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 use footnotes\includes as Includes;
 
 /**

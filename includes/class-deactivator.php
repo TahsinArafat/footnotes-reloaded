@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace footnotes\includes;
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 /**
  * Class providing action(s) on plugin deactivation.
  *
