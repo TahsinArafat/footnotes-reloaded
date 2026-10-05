@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build distributable zip
+        run: bash .dev/build.sh
+
+      - name: Locate the built zip
+        id: zip
+        run: |
+          zip_path=$(ls dist/*.zip | head -n1)
+          echo "path=${zip_path}" >> "$GITHUB_OUTPUT"
+          echo "Built: ${zip_path}"
+
+      - name: Verify the zip contains no development files
+        run: |
+          fail=0
+          for bad in tests docs .dev composer.json docker-compose.yml witdiff.toml phpunit.xml.dist .github .distignore; do
+            if unzip -Z1 "${{ steps.zip.outputs.path }}" | grep -q "^footnotes/${bad}"; then
+              echo "::error::release zip contains excluded path: ${bad}"
+              fail=1
+            fi
+          done
+          if [ $fail -ne 0 ]; then exit 1; fi
+          echo "Zip contents are clean."
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "${{ steps.zip.outputs.path }}" \
+            --title "${GITHUB_REF_NAME#v}" \
+            --generate-notes

@@ -1,0 +1,86 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: PHPUnit (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Keep in step with "Requires PHP" in footnotes.php.
+        php: [ '8.0', '8.1', '8.2', '8.3' ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Run unit tests
+        run: vendor/bin/phpunit --no-coverage
+
+  syntax:
+    name: PHP syntax check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - name: Lint every PHP file
+        run: |
+          status=0
+          while IFS= read -r file; do
+            if ! php -l "$file" > /dev/null; then
+              php -l "$file"
+              status=1
+            fi
+          done < <(git ls-files '*.php' | grep -v '^dist/')
+          exit $status
+
+  readme:
+    name: Validate readme.txt
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required readme.txt headers
+        run: |
+          fail=0
+          for field in "Contributors:" "Tags:" "Requires at least:" "Tested up to:" "Stable Tag:" "License:"; do
+            if ! grep -q "^${field}" README.txt; then
+              echo "::error::readme.txt is missing required header: ${field}"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Check header/readme version consistency
+        run: |
+          header_version=$(grep -m1 '^ \* Version:' footnotes.php | sed 's/.*: *//' | tr -d '[:space:]')
+          stable_tag=$(grep -m1 '^Stable Tag:' README.txt | sed 's/.*: *//' | tr -d '[:space:]')
+          echo "footnotes.php Version=$header_version  README.txt Stable Tag=$stable_tag"
+          if [ "$header_version" != "$stable_tag" ]; then
+            echo "::error::Version mismatch: footnotes.php says '$header_version' but README.txt Stable Tag says '$stable_tag'"
+            exit 1
+          fi
