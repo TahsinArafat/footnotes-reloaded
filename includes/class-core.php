@@ -211,7 +211,12 @@ class Core {
 	 * Uses {@see i18n} in order to set the domain and to
 	 * register the hook with WordPress.
 	 *
+	 * Hooked to `init` rather than `plugins_loaded`: WordPress 6.7 and later
+	 * emit `_load_textdomain_just_in_time was called incorrectly` if a
+	 * textdomain is loaded before `init`.
+	 *
 	 * @since 2.8.0
+	 * @since 2.8.0 Fix: hook on `init` instead of `plugins_loaded` for WP 6.7+ compatibility.
 	 * @uses i18n Handles initialization functions.
 	 *
 	 * @return void
@@ -220,7 +225,7 @@ class Core {
 
 		$i18n = new i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'init', $i18n, 'load_plugin_textdomain' );
 
 	}
 	/**
