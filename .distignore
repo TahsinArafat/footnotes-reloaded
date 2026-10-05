@@ -1,0 +1,36 @@
+# Files excluded from the distributable plugin zip.
+# Used by .dev/build.sh (and understood by WP-CLI / wp-dist-archive tooling).
+#
+# The repository intentionally contains development tooling, tests and docs.
+# None of it belongs in the artefact users install.
+
+# Repository metadata
+.git/
+.gitignore
+.gitattributes
+.github/
+
+# Development environment and tooling
+.dev/
+docker-compose.yml
+composer.json
+composer.lock
+witdiff.toml
+phpunit.xml.dist
+.phpunit.cache/
+.phpunit.result.cache
+
+# Tests and docs
+tests/
+docs/
+*.md
+!.distignore
+
+# OS / editor cruft
+.DS_Store
+.!*
+*.swp
+
+# Build output
+dist/
+build/

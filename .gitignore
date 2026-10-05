@@ -21,3 +21,6 @@ composer.lock
 
 # WitDiff receipts
 .witdiff/
+
+# Build output
+/dist/
