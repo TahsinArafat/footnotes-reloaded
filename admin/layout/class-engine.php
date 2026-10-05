@@ -152,8 +152,8 @@ abstract class Engine {
 			<?php foreach ( $this->sections as $section_slug => $section ) : ?>
 				<a 
 					class="nav-tab<?php echo ( $section_slug === $active_section->get_section_slug() ) ? ' nav-tab-active' : ''; ?>"
-					href="?page=<?php echo Init::MAIN_MENU_SLUG; ?>&t=<?php echo $section_slug; ?>">
-					<?php echo $section->get_title(); ?>	
+					href="?page=<?php echo esc_attr( Init::MAIN_MENU_SLUG ); ?>&t=<?php echo esc_attr( $section_slug ); ?>">
+					<?php echo esc_html( $section->get_title() ); ?>
 				</a>
 			<?php endforeach; ?>
 			</h2>

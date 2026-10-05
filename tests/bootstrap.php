@@ -176,6 +176,21 @@ if ( ! function_exists( 'update_option' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_kses_post' ) ) {
+	/**
+	 * Stub of wp_kses_post(): strips tags outside the post allowlist.
+	 *
+	 * Only the tags exercised by the settings descriptions are permitted here;
+	 * the stub exists to prove escaping is applied, not to replicate KSES.
+	 *
+	 * @param string $text Text to filter.
+	 * @return string Filtered text.
+	 */
+	function wp_kses_post( $text ) {
+		return strip_tags( (string) $text, '<a><code><strong><em><br><p><span><b><i>' );
+	}
+}
+
 if ( ! function_exists( 'esc_attr' ) ) {
 	/**
 	 * Stub of esc_attr().

@@ -118,7 +118,10 @@ class SettingsPage extends Engine {
 
 	public function setting_field_callback( array $args ): void {
 		if ( isset( $args['type'] ) ) {
-			echo $args['description'] . '</td><td>';
+			// Descriptions are authored in the plugin's partials and contain intentional
+			// markup (code samples, links), so they are escaped with wp_kses_post()
+			// rather than esc_html(), which would render the markup literally.
+			echo wp_kses_post( $args['description'] ) . '</td><td>';
 
 			switch ( $args['type'] ) {
 				case 'text':
