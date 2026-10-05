@@ -189,15 +189,15 @@ class SettingsPage extends Engine {
 		// Replace all placeholders.
 		$template->replace(
 			array(
-				'label-start'    => __( 'Start your footnote with the following short code:', 'footnotes' ),
+				'label-start'    => __( 'Start your footnote with the following short code:', 'footnotes-reloaded' ),
 				'start'          => $footnote_starting_tag['value'],
-				'label-end'      => __( '&hellip;and end your footnote with this short code:', 'footnotes' ),
+				'label-end'      => __( '&hellip;and end your footnote with this short code:', 'footnotes-reloaded' ),
 				'end'            => $footnote_ending_tag['value'],
 				'example-code'   => $example,
-				'example-string' => '<br/>' . __( 'will be displayed as:', 'footnotes' ),
+				'example-string' => '<br/>' . __( 'will be displayed as:', 'footnotes-reloaded' ),
 				'example'        => $general->task->exec( $example, true ),
 				// Translators: %1$s, %2$s: anchor element with hyperlink to the Support Forum.
-				'information'    => sprintf( __( 'For further information please check out our %1$sSupport Forum%2$s on WordPress.org.', 'footnotes' ), '<a href="https://wordpress.org/support/plugin/footnotes" target="_blank" class="footnote_plugin">', '</a>' ),
+				'information'    => sprintf( __( 'For further information please check out our %1$sSupport Forum%2$s on WordPress.org.', 'footnotes-reloaded' ), '<a href="https://wordpress.org/support/plugin/footnotes" target="_blank" class="footnote_plugin">', '</a>' ),
 			)
 		);
 
@@ -228,7 +228,7 @@ class SettingsPage extends Engine {
 		// Replace all placeholders.
 		$template->replace(
 			array(
-				'caption' => __( 'Donate now', 'footnotes' ),
+				'caption' => __( 'Donate now', 'footnotes-reloaded' ),
 			)
 		);
 		// Display template with replaced placeholders.
@@ -267,14 +267,14 @@ class SettingsPage extends Engine {
 		$tabs = array();
 
 		// Sync tab name with mirror in task.php.
-		$tabs[] = $this->add_section( 'settings', __( 'General settings', 'footnotes' ), 0, true );
+		$tabs[] = $this->add_section( 'settings', __( 'General settings', 'footnotes-reloaded' ), 0, true );
 
 		// Sync tab name with mirror in public function custom_css_migration().
-		$tabs[] = $this->add_section( 'customize', __( 'Referrers and tooltips', 'footnotes' ), 1, true );
+		$tabs[] = $this->add_section( 'customize', __( 'Referrers and tooltips', 'footnotes-reloaded' ), 1, true );
 
-		$tabs[] = $this->add_section( 'expert', __( 'Scope and priority', 'footnotes' ), 2, true );
-		$tabs[] = $this->add_section( 'customcss', __( 'Custom CSS', 'footnotes' ), 3, true );
-		$tabs[] = $this->add_section( 'how-to', __( 'Quick start guide', 'footnotes' ), 4, false );
+		$tabs[] = $this->add_section( 'expert', __( 'Scope and priority', 'footnotes-reloaded' ), 2, true );
+		$tabs[] = $this->add_section( 'customcss', __( 'Custom CSS', 'footnotes-reloaded' ), 3, true );
+		$tabs[] = $this->add_section( 'how-to', __( 'Quick start guide', 'footnotes-reloaded' ), 4, false );
 
 		return $tabs;
 	}
@@ -291,8 +291,8 @@ class SettingsPage extends Engine {
 	protected function get_meta_boxes(): array {
 		$meta_boxes = array();
 
-		$meta_boxes[] = $this->add_meta_box( 'how-to', 'help', __( 'Brief introduction: How to use the plugin', 'footnotes' ), 'help' );
-		$meta_boxes[] = $this->add_meta_box( 'how-to', 'donate', __( 'Help us to improve our Plugin', 'footnotes' ), 'donate' );
+		$meta_boxes[] = $this->add_meta_box( 'how-to', 'help', __( 'Brief introduction: How to use the plugin', 'footnotes-reloaded' ), 'help' );
+		$meta_boxes[] = $this->add_meta_box( 'how-to', 'donate', __( 'Help us to improve our Plugin', 'footnotes-reloaded' ), 'donate' );
 
 		return $meta_boxes;
 	}

@@ -45,6 +45,6 @@ class i18n {
 	 *
 	 * @var string
 	 */
-	public const TEXT_DOMAIN = 'footnotes';
+	public const TEXT_DOMAIN = 'footnotes-reloaded';
 
 }

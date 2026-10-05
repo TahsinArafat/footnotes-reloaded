@@ -160,7 +160,7 @@ abstract class Engine {
 			<?php
 
 			if ( $settings_updated ) {
-				echo sprintf( '<div id="message" class="updated">%s</div>', __( 'Settings saved', 'footnotes' ) );
+				echo sprintf( '<div id="message" class="updated">%s</div>', __( 'Settings saved', 'footnotes-reloaded' ) );
 			}
 
 			// show error/update messages

@@ -187,7 +187,7 @@ abstract class SettingsGroup {
 		foreach ( $this->settings as $setting ) {
 			add_settings_field(
 				$setting->key,
-				__( $setting->name, 'footnotes' ),
+				__( $setting->name, 'footnotes-reloaded' ),
 				array( $component, 'setting_field_callback' ),
 				'footnotes',
 				$setting->get_section_slug(),

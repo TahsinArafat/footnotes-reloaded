@@ -20,7 +20,7 @@
  * Requires PHP: 8.0
  * Author: Mark Cheret
  * Author URI: https://cheret.tech/footnotes
- * Text Domain: footnotes
+ * Text Domain: footnotes-reloaded
  * Domain Path: /languages
  * License: GPL v3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html

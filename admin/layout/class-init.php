@@ -181,7 +181,7 @@ class Init {
 				'error'             => '',
 				'PluginDescription' => array_key_exists( 'short_description', $plugin ) ? html_entity_decode( $plugin['short_description'] ) : 'Error reading Plugin information',
 				'PluginAuthor'      => array_key_exists( 'author', $plugin ) ? html_entity_decode( $plugin['author'] ) : 'unknown',
-				'PluginRatingText'  => $stars . ' ' . __( 'rating based on', 'footnotes' ) . ' ' . $num_ratings . ' ' . __( 'ratings', 'footnotes' ),
+				'PluginRatingText'  => $stars . ' ' . __( 'rating based on', 'footnotes-reloaded' ) . ' ' . $num_ratings . ' ' . __( 'ratings', 'footnotes-reloaded' ),
 				'PluginRating1'     => $stars >= 0.5 ? 'star-full' : 'star-empty',
 				'PluginRating2'     => $stars >= 1.5 ? 'star-full' : 'star-empty',
 				'PluginRating3'     => $stars >= 2.5 ? 'star-full' : 'star-empty',

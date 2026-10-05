@@ -99,7 +99,7 @@ class Reference_Container extends Base {
 	 * @return  string
 	 */
 	protected function get_description(): string {
-		return __( 'The widget defines the position of the reference container if set to &ldquo;widget area&rdquo;.', 'footnotes' );
+		return __( 'The widget defines the position of the reference container if set to &ldquo;widget area&rdquo;.', 'footnotes-reloaded' );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Reference_Container extends Base {
 	 * @param  mixed $instance  The instance of the widget.
 	 */
 	public function form( $instance ) {
-		echo __( 'The widget defines the position of the reference container if set to &ldquo;widget area&rdquo;.', 'footnotes' );
+		echo __( 'The widget defines the position of the reference container if set to &ldquo;widget area&rdquo;.', 'footnotes-reloaded' );
 	}
 
 	/**

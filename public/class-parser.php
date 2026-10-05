@@ -767,11 +767,11 @@ class Parser {
 			// Options named wrt backcompat, simplest is default.
 			case 'text-1':
 				/* Translators: 2: Link to plugin page 1: Love heart symbol */
-				$love_me_text = sprintf( __( 'I %2$s %1$s', 'footnotes' ), $linked_name, Config::LOVE_SYMBOL );
+				$love_me_text = sprintf( __( 'I %2$s %1$s', 'footnotes-reloaded' ), $linked_name, Config::LOVE_SYMBOL );
 				break;
 			case 'text-2':
 				/* Translators: %s: Link to plugin page */
-				$love_me_text = sprintf( __( 'This website uses the awesome %s plugin.', 'footnotes' ), $linked_name );
+				$love_me_text = sprintf( __( 'This website uses the awesome %s plugin.', 'footnotes-reloaded' ), $linked_name );
 				break;
 			case 'text-4':
 				/* Translators: 1: Link to plugin page 2: Love heart symbol */
@@ -783,11 +783,11 @@ class Parser {
 				break;
 			case 'text-6':
 				/* Translators: %s: Link to plugin page */
-				$love_me_text = sprintf( __( 'This website uses %s.', 'footnotes' ), $linked_name );
+				$love_me_text = sprintf( __( 'This website uses %s.', 'footnotes-reloaded' ), $linked_name );
 				break;
 			case 'text-7':
 				/* Translators: %s: Link to plugin page */
-				$love_me_text = sprintf( __( 'This website uses the %s plugin.', 'footnotes' ), $linked_name );
+				$love_me_text = sprintf( __( 'This website uses the %s plugin.', 'footnotes-reloaded' ), $linked_name );
 				break;
 			case 'text-3':
 			default:
@@ -1238,15 +1238,15 @@ class Parser {
 
 				// Compose warning box.
 				$syntax_error_warning  = '<div class="footnotes_validation_error"><p>';
-				$syntax_error_warning .= __( 'WARNING: unbalanced footnote start tag short code found.', 'footnotes' );
+				$syntax_error_warning .= __( 'WARNING: unbalanced footnote start tag short code found.', 'footnotes-reloaded' );
 				$syntax_error_warning .= '</p><p>';
 
 				// Syntax validation setting in the dashboard under the General settings tab.
 				/* Translators: 1: General Settings 2: Footnote start and end short codes 3: Check for balanced shortcodes */
-				$syntax_error_warning .= sprintf( __( 'If this warning is irrelevant, please disable the syntax validation feature in the dashboard under %1$s &gt; %2$s &gt; %3$s.', 'footnotes' ), __( 'General settings', 'footnotes' ), __( 'Footnote start and end short codes', 'footnotes' ), __( 'Check for balanced shortcodes', 'footnotes' ) );
+				$syntax_error_warning .= sprintf( __( 'If this warning is irrelevant, please disable the syntax validation feature in the dashboard under %1$s &gt; %2$s &gt; %3$s.', 'footnotes-reloaded' ), __( 'General settings', 'footnotes-reloaded' ), __( 'Footnote start and end short codes', 'footnotes-reloaded' ), __( 'Check for balanced shortcodes', 'footnotes-reloaded' ) );
 
 				$syntax_error_warning .= '</p><p>';
-				$syntax_error_warning .= __( 'Unbalanced start tag short code found before:', 'footnotes' );
+				$syntax_error_warning .= __( 'Unbalanced start tag short code found before:', 'footnotes-reloaded' );
 				$syntax_error_warning .= '</p><p>“';
 				$syntax_error_warning .= $error_spot_string;
 				$syntax_error_warning .= '”</p></div>';

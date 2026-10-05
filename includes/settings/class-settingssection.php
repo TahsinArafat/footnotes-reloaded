@@ -88,7 +88,7 @@ abstract class SettingsSection {
 	public function add_settings_section(): void {
 		add_settings_section(
 			$this->section_slug,
-			__( $this->title, 'footnotes' ),
+			__( $this->title, 'footnotes-reloaded' ),
 			array( $this, 'setting_section_callback' ),
 			'footnotes'
 		);
